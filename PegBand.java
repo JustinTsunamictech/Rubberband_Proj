@@ -40,8 +40,8 @@ public class PegBand
             } 
         }   
      }
-     
- public int[] improverOne(int[] position, int[][] adjacencyList)
+ //Return the post with the highest connection count.
+ public int getHighestCon(int[] position, int[][] adjacencyList)
      {
         //Tracks number of connections for each post in position array.
         int[] connectionCount = new int[position.length];
@@ -67,6 +67,8 @@ public class PegBand
             if(connectionCount[i] > highestConCount)
                 highestConCount = i;
         }
+     
+        return highestConCount;
      } 
 
         //Stores the highest connection count.
@@ -77,6 +79,8 @@ public class PegBand
             if(connectionCount[i] > highestConCount)
                 highestConCount = i;
         }
+    
+        return highestConCount;
      } 
 
      public int compareCost(int origCost, int newCost)
