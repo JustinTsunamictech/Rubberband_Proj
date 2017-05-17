@@ -70,6 +70,7 @@ public class PegBand
      
         return highestConCount;
      } 
+    
 
         //Stores the highest connection count.
         int highestConCount = 0;
