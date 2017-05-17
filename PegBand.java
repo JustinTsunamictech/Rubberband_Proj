@@ -16,7 +16,7 @@ public class PegBand
         compareCost(originalCost, thisGraph.calculateCost())
         
     }
-    
+    //Calculate and return the total cost of the arrangement of posts.
     public int calculateCost(int[] position, int[][] adjacencyList)
     {
         //The cost of the permutation in its entirety.
