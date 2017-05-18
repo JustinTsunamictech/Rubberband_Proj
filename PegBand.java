@@ -110,7 +110,7 @@ public class PegBand
              position[h + 1] = k;
              position[k] = temp;
          }
-         retutrn position;
+         return position;
      }
 
      public void compareCost(int origCost, int newCost)
