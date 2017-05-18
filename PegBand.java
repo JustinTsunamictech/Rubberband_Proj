@@ -12,8 +12,7 @@ public class PegBand
             positionArray[i] = i;
 
         int originalCost = calculateCost(positionArray, thisGraph.adjacencyList);
-        improverOne(positionArray, thisGraph.adjacencyList);
-        compareCost(originalCost, thisGraph.calculateCost())
+        compareCost(pairCompare(positionArray, thisGraph.adjacencyList), originalCost);
         
     }
     //Calculate and return the total cost of the arrangement of posts.
@@ -39,10 +38,11 @@ public class PegBand
                     totalCost += (position[secondPeg] - position[firstPeg]);
             } 
         }   
+        return totalCost;
      }
  //Return the post with the highest connection count.
  public int getHighestCon(int[] position, int[][] adjacencyList)
-     {
+ {
         //Tracks number of connections for each post in position array.
         int[] connectionCount = new int[position.length];
          
@@ -69,9 +69,7 @@ public class PegBand
         }
      
         return highestConCount;
-     } 
-    
-
+     
         //Stores the highest connection count.
         int highestConCount = 0;
 
@@ -82,10 +80,41 @@ public class PegBand
         }
     
         return highestConCount;
-     } 
-
-     public int compareCost(int origCost, int newCost)
+ }
+     public int[] pairImprover(int[] position, int[][] adjacency)
      {
-        return (newCost - origCost); 
+        //Stores # of connections between each post number and a specific post;
+         int[] pairCompare = new int[position.length];
+         //Find # connections between every post and given post h.
+         //Put the highest connection pairs next to one another in the position array.
+         //Do same process for every post.
+         for(int h = 0; h < adjacency.length - 1; h++)
+         {
+             for(int i = 0; i < adjacency.length; i++)
+             {
+                 for(int j = 0; j < adjacency[i].length; j++)
+                 {
+                      pairCompare[adjacency[h][j]]++;
+                      if(adjacency[i][j] == h)
+                          pairCompare[i]++;
+                      
+                 }
+             }
+             int largestPairCount  = 0;
+             for(int k = 0; k < pairCompare.length; k++)
+             {
+                 if(pairCompare[k] > largestPairCount)
+                     largestPairCount = k;
+             }
+             int temp = position[h + 1];
+             position[h + 1] = k;
+             position[k] = temp;
+         }
+         retutrn position;
+     }
+
+     public void compareCost(int origCost, int newCost)
+     {
+        System.out.print(newCost - origCost); 
      }
 }
