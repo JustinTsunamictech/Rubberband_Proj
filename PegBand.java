@@ -1,6 +1,3 @@
-
-import java.util.*;
-
 public class PegBand
 {
     public static void main(String[] args)
@@ -8,15 +5,21 @@ public class PegBand
         Graph thisGraph = new Graph();
         int[] positionArray = new int[thisGraph.adjacencyList.length];
 
-        for(int i = 0; i < thisGraph.adjacencyList[].length; i++)
+        for(int i = 0; i < thisGraph.adjacencyList.length; i++)
             positionArray[i] = i;
 
         int originalCost = calculateCost(positionArray, thisGraph.adjacencyList);
-        compareCost(pairCompare(positionArray, thisGraph.adjacencyList), originalCost);
+        //compareCost(calculateCost(pairImprover(positionArray, thisGraph.adjacencyList), thisGraph.adjacencyList), originalCost);
+        System.out.println(originalCost);
+        int newInt = calculateCost(pairImprover(positionArray, thisGraph.adjacencyList), thisGraph.adjacencyList);
+        System.out.println("New Cost: " + newInt);
         
+        int[] newPosition = pairImprover(positionArray, thisGraph.adjacencyList).length;
+        for(int i = 0; i < newPosition.length; i++)
+            System.out.println(newPosition[i]);
     }
     //Calculate and return the total cost of the arrangement of posts.
-    public int calculateCost(int[] position, int[][] adjacencyList)
+    public static int calculateCost(int[] position, int[][] adjacencyList)
     {
         //The cost of the permutation in its entirety.
         int totalCost = 0;
@@ -27,7 +30,7 @@ public class PegBand
             for(int j = 0; j < adjacencyList[i].length; j++)
             {
                 //Store both pegs in the pair.
-                int firstPeg = adjacencyList[i];
+                int firstPeg = i;
                 int secondPeg = adjacencyList[i][j];
 
                 //Compare the positions of the pegs. Add the difference between them to the cost 
@@ -52,7 +55,7 @@ public class PegBand
             for(int j = 0; j < adjacencyList[i].length; j++)
             {
                 connectionCount[i] += adjacencyList[i].length;
-                connectionCount[adjacenyList[i][j]]++;
+                connectionCount[adjacencyList[i][j]]++;
             }
         }
 
@@ -67,21 +70,9 @@ public class PegBand
             if(connectionCount[i] > highestConCount)
                 highestConCount = i;
         }
-     
-        return highestConCount;
-     
-        //Stores the highest connection count.
-        int highestConCount = 0;
-
-        for(int i = 0; i < connectionCount.length; i++)
-        {
-            if(connectionCount[i] > highestConCount)
-                highestConCount = i;
-        }
-    
         return highestConCount;
  }
-     public int[] pairImprover(int[] position, int[][] adjacency)
+     public static int[] pairImprover(int[] position, int[][] adjacency)
      {
         //Stores # of connections between each post number and a specific post;
          int[] pairCompare = new int[position.length];
@@ -90,30 +81,32 @@ public class PegBand
          //Do same process for every post.
          for(int h = 0; h < adjacency.length - 1; h++)
          {
+             for(int g = 0; g < adjacency[h].length; g++)
+                pairCompare[adjacency[h][g]]++;
+
              for(int i = 0; i < adjacency.length; i++)
              {
                  for(int j = 0; j < adjacency[i].length; j++)
                  {
-                      pairCompare[adjacency[h][j]]++;
                       if(adjacency[i][j] == h)
                           pairCompare[i]++;
                       
                  }
              }
-             int largestPairCount  = 0;
+             int largestPairPost  = 0;
              for(int k = 0; k < pairCompare.length; k++)
              {
-                 if(pairCompare[k] > largestPairCount)
-                     largestPairCount = k;
+                 if(pairCompare[k] > pairCompare[largestPairPost])
+                     largestPairPost = k;
              }
              int temp = position[h + 1];
-             position[h + 1] = k;
-             position[k] = temp;
+             position[h + 1] = largestPairPost;
+             position[largestPairPost] = temp;
          }
          return position;
      }
 
-     public void compareCost(int origCost, int newCost)
+     public static void compareCost(int origCost, int newCost)
      {
         System.out.print(newCost - origCost); 
      }
