@@ -79,7 +79,7 @@ public class PegBand
          //Find # connections between every post and given post h.
          //Put the highest connection pairs next to one another in the position array.
          //Do same process for every post.
-         for(int h = 0; h < adjacency.length - 1; h++)
+         for(int h = 0; h < position.length - 1; h++)
          {
              for(int g = 0; g < adjacency[h].length; g++)
                 pairCompare[adjacency[h][g]]++;
